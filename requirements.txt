@@ -1,0 +1,4 @@
+tensorflow
+numpy
+matplotlib
+spektral  # For Graph Neural Networks
