@@ -14,3 +14,4 @@ This repository contains implementations of various deep learning architectures 
 ## Installation
 ```bash
 pip install -r requirements.txt
+
