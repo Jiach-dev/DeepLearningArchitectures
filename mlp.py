@@ -2,31 +2,42 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 
-#input_shape = data.shape[1] = code_contract [ mou, mb , sms, ratios ]
+# 10 columns = 10 neurons  
+# 128 neurons in the hidden layer  
+# Fully connected layer  
+# Weights = trainable parameters  
 
-# 10 columns = 10 neurones 
-# 128 neurones 
-# fully connected 
-# weights = parameters 
-### 10 X 128 = 1280
-# mechanism = gradient descent : update the weights 
-# z1 ...z128 = w1x1 ..+++.. x w1010 + bias
-### R+ <-- x1
-### z1 <-- R == vanishing 
-## control z1 / transform into non linear 
-## sigmoid / relu / tanh (exp(x)+ exp(-x)/(....)) activation
-### final layer / output layer zfinal 1 and 2 but not proba 
-### softmax z1/z1+z2+z3 sum() = 1
-# ReLu = max(0, x)
+### 10 × 128 = 1280 weights  
+# Training mechanism = Gradient Descent (updates the weights)  
+# z1 ... z128 = w1x1 + w2x2 + ... + w10x10 + bias  
 
-#ReLu [-2, 1,2] = [0, 1,2]
-# W = W - alpha X DG/Dw
-# alpha = learning rate
-#Experiment
-#neurones = range (0, 1000)
-#layers = 10
-#ativativation_f = ["RelU, sigm"]
-# num_class = data.target.numniqes
+### Input transformation:  
+# ℝ⁺ <-- x1 (Input in the positive real domain)  
+# z1 <-- ℝ (Mapped to real numbers) → Issue: **Vanishing gradients**  
+
+### Control z1 / Transform into a non-linear activation function  
+# Activation functions: Sigmoid / ReLU / Tanh  
+# Example: Sigmoid = (exp(x) - exp(-x)) / (exp(x) + exp(-x))  
+
+### Final Layer / Output Layer  
+# z_final1 and z_final2 are not probabilities yet  
+# Softmax: Converts raw values into probabilities  
+# softmax(z_i) = exp(z_i) / sum(exp(z_j)) (Ensures sum of outputs = 1)  
+
+### **ReLU Activation**  
+# ReLU(x) = max(0, x)  
+# Example: ReLU([-2, 1, 2]) → [0, 1, 2]  
+
+### **Weight Update Rule (Gradient Descent)**  
+# W = W - α * ∂L/∂W  
+# α = Learning rate  
+
+### **Experimental Setup**  
+#neurons = range(0, 1000)  # Number of neurons in a layer  
+#layers = 10  # Number of layers  
+#activation_f = ["ReLU", "Sigmoid"]  # Activation functions  
+#num_classes = len(set(data.target))  # Number of unique classes  
+
 
 def build_mlp(input_shape, num_classes):
     """Builds a simple Multi-Layer Perceptron (MLP) model."""
